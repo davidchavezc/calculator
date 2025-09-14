@@ -3,7 +3,6 @@ const size = 4;
 
 function drawGrid(size){
   for(i=1; size**2 >= i; i++){
-    // console.log("Grid drawn")
     const calculatorButton = document.createElement('button');
     calculatorButton.classList.add('calcButton');
     calculatorGrid.appendChild(calculatorButton);
@@ -14,14 +13,17 @@ function drawGrid(size){
     calcButton.style.height = `calc(100% / ${size})`;
   });
 }
+const gScreen = document.querySelector("#screen");
 
+function fillScreen(text){
+  let words = gScreen.textContent;
+  gScreen.textContent = words + text;;
+
+}
 function fillButtons(){
   const gridButtons = document.querySelectorAll(".calcButton");
   let i = 0;
   gridButtons.forEach((button, index) => {
-    // if(index >= 0 && index <= 1) {
-    //   button.textContent = "";
-    // }
     switch (index) {
       case 1:
         button.textContent = "CE";
@@ -45,6 +47,13 @@ function fillButtons(){
         button.textContent = i;
         i++;
         break;
-  }})}
+      }
+      button.addEventListener('click', function() {
+        fillScreen(this.textContent);
+      }) ;
+    })}
+    
+
+
   drawGrid(size);
   fillButtons();

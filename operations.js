@@ -16,3 +16,19 @@ function divide(num1, num2){
   }
   return num1 / num2;
 }
+
+function operate(operator, num1, num2){
+  if (operator == "sum"){
+    sum(num1, num2);
+  }
+  else if(operator == "substract"){
+    substract(num1,num2);
+  }
+  else if(operator == "multiply"){
+    multiply(num1, num2);
+  }
+  else if(operator == "divide"){
+    divide(num1, num2);
+  }
+  else throw new Error('Not a defined operator');
+}

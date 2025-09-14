@@ -9,8 +9,8 @@ function drawGrid(gridSize) {
   }
   const buttons = document.querySelectorAll(".calcButton");
   buttons.forEach(button => {
-    button.style.flex = `1 0 calc(100% / ${gridSize})`;
-    button.style.height = `calc(100% / ${gridSize})`;
+    button.style.flex = `1 0 calc((100% / ${gridSize}) - 0.5em)`;
+    button.style.height = `calc((100% / ${gridSize}) - 0.5em)`;
   });
 }
 

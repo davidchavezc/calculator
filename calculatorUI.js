@@ -17,7 +17,34 @@ function drawGrid(size){
 
 function fillButtons(){
   const gridButtons = document.querySelectorAll(".calcButton");
-  gridButtons[0].textContent = "Hello world!";
-  }
+  let i = 0;
+  gridButtons.forEach((button, index) => {
+    // if(index >= 0 && index <= 1) {
+    //   button.textContent = "";
+    // }
+    switch (index) {
+      case 1:
+        button.textContent = "CE";
+        break;
+      case 2:
+        button.textContent = "/";
+        break;
+      case 3:
+        button.textContent = "x";
+        break;
+      case 7:
+        button.textContent = "-";
+        break;
+      case 11:
+        button.textContent = "+";
+        break;
+      case 15:
+        button.textContent = "="
+        break;
+      default:
+        button.textContent = i;
+        i++;
+        break;
+  }})}
   drawGrid(size);
   fillButtons();

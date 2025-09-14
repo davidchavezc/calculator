@@ -1,32 +1,37 @@
 const calculatorGrid = document.querySelector("#calculatorGrid");
-const size = 4;
+const GRID_SIZE = 4;
 
-function drawGrid(size){
-  for(i=1; size**2 >= i; i++){
-    const calculatorButton = document.createElement('button');
-    calculatorButton.classList.add('calcButton');
-    calculatorGrid.appendChild(calculatorButton);
+function drawGrid(gridSize) {
+  for (let i = 1; i <= gridSize ** 2; i++) {
+    const button = document.createElement('button');
+    button.classList.add('calcButton');
+    calculatorGrid.appendChild(button);
   }
-  const calcButton = document.querySelectorAll(".calcButton");
-  calcButton.forEach(calcButton => {
-    calcButton.style.flex = `1 0 calc(100% / ${size})`;
-    calcButton.style.height = `calc(100% / ${size})`;
+  const buttons = document.querySelectorAll(".calcButton");
+  buttons.forEach(button => {
+    button.style.flex = `1 0 calc(100% / ${gridSize})`;
+    button.style.height = `calc(100% / ${gridSize})`;
   });
 }
-const gScreen = document.querySelector("#screen");
 
-function fillScreen(text){
-  let words = gScreen.textContent;
-  gScreen.textContent = words + text;;
+const screenText = document.querySelector(".screenText");
 
+function appendToScreen(text) {
+  screenText.textContent += text;
 }
-function fillButtons(){
-  const gridButtons = document.querySelectorAll(".calcButton");
-  let i = 0;
-  gridButtons.forEach((button, index) => {
+
+function clearScreen() {
+  screenText.textContent = "";
+}
+
+function labelButtons() {
+  const buttons = document.querySelectorAll(".calcButton");
+  let number = 0;
+  buttons.forEach((button, index) => {
     switch (index) {
       case 1:
         button.textContent = "CE";
+        button.addEventListener('click', clearScreen);
         break;
       case 2:
         button.textContent = "/";
@@ -41,19 +46,17 @@ function fillButtons(){
         button.textContent = "+";
         break;
       case 15:
-        button.textContent = "="
+        button.textContent = "=";
         break;
       default:
-        button.textContent = i;
-        i++;
-        break;
-      }
-      button.addEventListener('click', function() {
-        fillScreen(this.textContent);
-      }) ;
-    })}
-    
+        button.textContent = number;
+        number++;
+        button.addEventListener('click', function () {
+          appendToScreen(this.textContent);
+        });
+    }
+  });
+}
 
-
-  drawGrid(size);
-  fillButtons();
+drawGrid(GRID_SIZE);
+labelButtons();

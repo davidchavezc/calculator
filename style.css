@@ -1,7 +1,46 @@
-body{
-  background-color: slategrey;
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Open Sans';
+  background-color: darkslategrey;
 }
-*{
+
+* {
   color: yellow;
+  text-align: center;
+}
+
+.calcButton {
+  box-sizing: border-box;
+  background-color: slategrey;
+  color: yellow;
+  font-size: 2em;
+}
+
+#calculatorGrid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 32em;
+  height: 32em;
+  outline: 0.5em solid slategrey;
+}
+
+#screen {
+  box-sizing: border-box;
+  outline: 0.5em solid slategray;
+  width: 32em;
+  height: 8em;
+  background-color: green;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.screenText {
+  color: greenyellow;
+  font-size: 3em;
+  padding-right: 1em;
   text-align: center;
 }

@@ -16,7 +16,7 @@ function drawGrid() {
 const screenText = document.querySelector(".screenText");
 
 function populateScreen(content) {
-  screenText.textContent = content;
+  screenText.textContent += content;
 }
 
 function clearScreen() {
@@ -25,24 +25,34 @@ function clearScreen() {
 
 function labelButtons() {
   const buttons = document.querySelectorAll(".calcButton");
+  let operator = "";
   let number = 0;
   buttons.forEach((button, index) => {
     switch (index) {
       case 1:
         button.textContent = "CE";
         button.addEventListener('click', clearScreen);
+        document.addEventListener('keydown', e => {
+          if (e.key === "Backspace"){
+            clearScreen();
+          }
+        })
         break;
       case 2:
         button.textContent = "/";
+        operator = "divide";
         break;
       case 3:
         button.textContent = "x";
+        operator = "multiply";
         break;
       case 7:
         button.textContent = "-";
+        operator = "substract";
         break;
       case 11:
         button.textContent = "+";
+        operator = "sum";
         break;
       case 15:
         button.textContent = "=";
@@ -51,11 +61,11 @@ function labelButtons() {
         button.textContent = number;
         number++;
         button.addEventListener('click', function () {
-          appendToScreen(this.textContent);
+          populateScreen(this.textContent);
         });
     }
+
   });
 }
-
 drawGrid();
 labelButtons();

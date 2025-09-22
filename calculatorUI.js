@@ -85,30 +85,42 @@ function labelButtons() {
         break;
       case 2:
         button.textContent = "/";
+        button.addEventListener('click', () => {
+          num1 = screenText.textContent;
+          operatorPressed = 1;
+          operator = "divide";
+        });
         break;
       case 3:
         button.textContent = "x";
-        operator = "multiply";
+        button.addEventListener('click', () => {
+          num1 = screenText.textContent;
+          operatorPressed = 1;
+          operator = "multiply";
+        });
         break;
       case 7:
         button.textContent = "-";
-        operator = "substract";
+        button.addEventListener('click', () => {
+          num1 = screenText.textContent;
+          operatorPressed = 1;
+          operator = "substract";
+        });
         break;
       case 11:
         button.textContent = "+";
         button.addEventListener('click', () => {
           num1 = screenText.textContent;
-          // console.log(num1);
           operatorPressed = 1;
           operator = "sum";
-        })
+        });
         break;
       case 15:
         button.textContent = "=";
         button.addEventListener("click", () => {
+          operatorPressed = 1;
           let num2 = screenText.textContent;
           let result = operate(operator, num1, num2);
-          console.log(result)
           clearScreen();
           populateScreen(result);
         })
@@ -124,7 +136,6 @@ function labelButtons() {
           populateScreen(this.textContent);
         });
     }
-
   });
 }
 drawGrid();

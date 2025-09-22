@@ -1,23 +1,22 @@
 const calculatorGrid = document.querySelector("#calculatorGrid");
-const GRID_SIZE = 4;
 
-function drawGrid(gridSize) {
-  for (let i = 1; i <= gridSize ** 2; i++) {
+function drawGrid() {
+  for (let i = 1; i <= 16; i++) {
     const button = document.createElement('button');
     button.classList.add('calcButton');
     calculatorGrid.appendChild(button);
   }
   const buttons = document.querySelectorAll(".calcButton");
   buttons.forEach(button => {
-    button.style.flex = `1 0 calc((100% / ${gridSize}) - 0.5em)`;
-    button.style.height = `calc((100% / ${gridSize}) - 0.5em)`;
+    button.style.flex = `1 0 calc(25% - 0.5em)`;
+    button.style.height = `calcc(25% - 0.5em )`;
   });
 }
 
 const screenText = document.querySelector(".screenText");
 
-function appendToScreen(text) {
-  screenText.textContent += text;
+function populateScreen(content) {
+  screenText.textContent = content;
 }
 
 function clearScreen() {
@@ -58,5 +57,5 @@ function labelButtons() {
   });
 }
 
-drawGrid(GRID_SIZE);
+drawGrid();
 labelButtons();

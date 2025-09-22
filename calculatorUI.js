@@ -1,4 +1,6 @@
 const calculatorGrid = document.querySelector("#calculatorGrid");
+const screenText = document.querySelector(".screenText");
+var num1, num2;
 
 function drawGrid() {
   for (let i = 1; i <= 16; i++) {
@@ -13,15 +15,6 @@ function drawGrid() {
   });
 }
 
-const screenText = document.querySelector(".screenText");
-
-function populateScreen(content) {
-  screenText.textContent += content;
-}
-
-function clearScreen() {
-  screenText.textContent = "";
-}
 
 function sum(num1, num2){
   return num1 + num2;
@@ -61,17 +54,24 @@ function operate(operator, sNum1, sNum2){
   else throw new Error('Not a defined operator');
 }
 
+function populateScreen(content) {
+  screenText.textContent += content;
+}
+
+function clearScreen(wipeData = 0) {
+  if(wipeData){
+    num1 = 0;
+    num2 = 0;
+  }
+  screenText.textContent = "";
+}
+
 function labelButtons() {
   const buttons = document.querySelectorAll(".calcButton");
   let operator = "";
   let number = 0;
-  let num1 = 0;
   let operatorPressed = 0;
-  // const screenText = document.querySelector(".screenText");
-  let value = screenText.textContent;
-  if(!value){
-    console.log('Hello World!')
-  }
+
   buttons.forEach((button, index) => {
     switch (index) {
       case 1:
@@ -79,7 +79,7 @@ function labelButtons() {
         button.addEventListener('click', clearScreen);
         document.addEventListener('keydown', e => {
           if (e.key === "Backspace"){
-            clearScreen();
+            clearScreen(1);
           }
         })
         break;
@@ -120,9 +120,13 @@ function labelButtons() {
         button.addEventListener("click", () => {
           operatorPressed = 1;
           let num2 = screenText.textContent;
-          let result = operate(operator, num1, num2);
-          clearScreen();
-          populateScreen(result);
+          if(!num1 || !num2){
+            throw new Error('No two numbers supplied');
+          }else{
+            let result = operate(operator, num1, num2);
+            clearScreen();
+            populateScreen(result);
+          }
         })
         break;
       default:

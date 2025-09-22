@@ -30,7 +30,8 @@ function multiply(num1, num2){
 
 function divide(num1, num2){
   if (num2 === 0) {
-    throw new Error('Cannot divide by zero');
+    clearScreen(1);
+    return 'Cannot divide by zero :('
   }
   return num1 / num2;
 }
@@ -38,7 +39,7 @@ function divide(num1, num2){
 function operate(operator, sNum1, sNum2){
   const num1 = parseFloat(sNum1);
   const num2 = parseFloat(sNum2);
-  console.log(`${num1} ${num2}`)
+  console.log(`Operating ${operator} into ${num1} & ${num2}`)
   if (operator == "sum"){
     return sum(num1, num2);
   }
@@ -89,8 +90,17 @@ function labelButtons() {
       case 2:
         button.textContent = "/";
         button.addEventListener('click', () => {
+           if(chain){
+            console.log('initiated chain for dividing')
+            num2 = screenText.textContent;
+            let result = operate(operator, num1, num2);
+            clearScreen();
+            populateScreen(result);
+          }
           num1 = screenText.textContent;
           operator = "divide";
+          clear = 1;
+          chain = 1;
         });
         break;
       case 3:
@@ -133,7 +143,6 @@ function labelButtons() {
             num2 = screenText.textContent;
             let result = operate(operator, num1, num2);
             clearScreen(1);
-            // clearScreen();
             populateScreen(result);
           }
           num1 = screenText.textContent;
@@ -159,7 +168,6 @@ function labelButtons() {
         button.addEventListener('click', function () {
           if(clear){
             clearScreen();
-            console.log('cleared')
             clear = 0;
             populateScreen(this.textContent);
           }else{

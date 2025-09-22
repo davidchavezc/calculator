@@ -7,7 +7,7 @@ body {
   background-color: rgb(255, 255, 255);
 }
 .calcButton {
-  background-color: rgba(255, 255, 255, 0.326);
+  background-color: rgba(255, 255, 255, 0.300);
   border-radius: 50%;
   color: rgb(255, 255, 255)  ;
   outline: none;
@@ -16,10 +16,16 @@ body {
   font-size: 2em;
   overflow: clip;
   padding: 0px;
-  transition: background-color 1s;
+  font-family: Silkscreen;  
+  transition: background-color 1s, border-radius 0.3s;
+}
+.calcButton:hover{
+  /* font-size: 2.2em; */
+  border-radius: 10%;
+  background-color: rgba(255, 255, 255, 0.500);
 }
 .calcButton:active{
-    background-color: rgba(255, 255, 255, 0.641);
+    background-color: rgba(255, 255, 255, 0.650);
 }
 
 #calculatorGrid {
@@ -40,6 +46,8 @@ body {
   display: flex;
   align-items: center;  
   justify-content: end;
+  font-family: Silkscreen;
+  text-shadow: 2px 2px 20px rgb(0, 255, 60)  ;
 }
 
 .screenText {

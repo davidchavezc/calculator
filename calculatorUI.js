@@ -23,6 +23,44 @@ function clearScreen() {
   screenText.textContent = "";
 }
 
+function sum(num1, num2){
+  return num1 + num2;
+}
+
+function substract(num1, num2){
+  return num1 - num2;
+}
+
+function multiply(num1, num2){
+  return num1 * num2;
+}
+
+function divide(num1, num2){
+  if (num2 === 0) {
+    throw new Error('Cannot divide by zero');
+  }
+  return num1 / num2;
+}
+
+function operate(operator, sNum1, sNum2){
+  const num1 = parseFloat(sNum1);
+  const num2 = parseFloat(sNum2);
+  console.log(`${num1} ${num2}`)
+  if (operator == "sum"){
+    return sum(num1, num2);
+  }
+  else if(operator == "substract"){
+    return substract(num1,num2);
+  }
+  else if(operator == "multiply"){
+    return multiply(num1, num2);
+  }
+  else if(operator == "divide"){
+    return divide(num1, num2);
+  }
+  else throw new Error('Not a defined operator');
+}
+
 function labelButtons() {
   const buttons = document.querySelectorAll(".calcButton");
   let operator = "";
@@ -59,15 +97,21 @@ function labelButtons() {
       case 11:
         button.textContent = "+";
         button.addEventListener('click', () => {
-          let value = screenText.textContent;
-          num1 = value;
-          console.log(num1);
+          num1 = screenText.textContent;
+          // console.log(num1);
           operatorPressed = 1;
           operator = "sum";
         })
         break;
       case 15:
         button.textContent = "=";
+        button.addEventListener("click", () => {
+          let num2 = screenText.textContent;
+          let result = operate(operator, num1, num2);
+          console.log(result)
+          clearScreen();
+          populateScreen(result);
+        })
         break;
       default:
         button.textContent = number;

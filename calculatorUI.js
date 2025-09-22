@@ -60,23 +60,26 @@ function populateScreen(content) {
 
 function clearScreen(wipeData = 0) {
   if(wipeData){
-    num1 = 0;
-    num2 = 0;
+    num1 = null;
+    num2 = null;
+    chain = 0;
   }
   screenText.textContent = "";
 }
 
 function labelButtons() {
   const buttons = document.querySelectorAll(".calcButton");
-  let operator = "";
-  let number = 0;
-  let operatorPressed = 0;
+  let operator;
+  let labelNumber = 0;
+  let clear = 0;
+  let chain = 0;
+
 
   buttons.forEach((button, index) => {
     switch (index) {
       case 1:
         button.textContent = "CE";
-        button.addEventListener('click', clearScreen);
+        button.addEventListener('click', () => clearScreen(1));
         document.addEventListener('keydown', e => {
           if (e.key === "Backspace"){
             clearScreen(1);
@@ -87,57 +90,81 @@ function labelButtons() {
         button.textContent = "/";
         button.addEventListener('click', () => {
           num1 = screenText.textContent;
-          operatorPressed = 1;
           operator = "divide";
         });
         break;
       case 3:
         button.textContent = "x";
         button.addEventListener('click', () => {
+          if(chain){
+            console.log('initiated chain for multiplying')
+            num2 = screenText.textContent;
+            let result = operate(operator, num1, num2);
+            clearScreen();
+            populateScreen(result);
+          }
           num1 = screenText.textContent;
-          operatorPressed = 1;
           operator = "multiply";
+          clear = 1;
+          chain = 1;
         });
         break;
       case 7:
         button.textContent = "-";
         button.addEventListener('click', () => {
+           if(chain){
+            console.log('initiated chain for minus')
+            num2 = screenText.textContent;
+            let result = operate(operator, num1, num2);
+            clearScreen();
+            populateScreen(result);
+          }
           num1 = screenText.textContent;
-          operatorPressed = 1;
           operator = "substract";
+          clear = 1;
+          chain = 1;
         });
         break;
       case 11:
         button.textContent = "+";
         button.addEventListener('click', () => {
+          if(chain){
+            console.log('initiated chain for sum')
+            num2 = screenText.textContent;
+            let result = operate(operator, num1, num2);
+            clearScreen(1);
+            // clearScreen();
+            populateScreen(result);
+          }
           num1 = screenText.textContent;
-          operatorPressed = 1;
           operator = "sum";
+          clear = 1;
+          chain = 1;
         });
         break;
       case 15:
         button.textContent = "=";
         button.addEventListener("click", () => {
-          operatorPressed = 1;
-          let num2 = screenText.textContent;
-          if(!num1 || !num2){
-            throw new Error('No two numbers supplied');
-          }else{
-            let result = operate(operator, num1, num2);
-            clearScreen();
-            populateScreen(result);
-          }
+          num2 = screenText.textContent;
+          let result = operate(operator, num1, num2);
+          clearScreen();
+          populateScreen(result);
+          clear = 1;
+          chain = 0;
         })
         break;
       default:
-        button.textContent = number;
-        number++;
+        button.textContent = labelNumber;
+        labelNumber++;
         button.addEventListener('click', function () {
-          if(operatorPressed){
+          if(clear){
             clearScreen();
-            operatorPressed = 0;
+            console.log('cleared')
+            clear = 0;
+            populateScreen(this.textContent);
+          }else{
+            populateScreen(this.textContent);
           }
-          populateScreen(this.textContent);
         });
     }
   });

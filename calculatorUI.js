@@ -27,6 +27,13 @@ function labelButtons() {
   const buttons = document.querySelectorAll(".calcButton");
   let operator = "";
   let number = 0;
+  let num1 = 0;
+  let operatorPressed = 0;
+  // const screenText = document.querySelector(".screenText");
+  let value = screenText.textContent;
+  if(!value){
+    console.log('Hello World!')
+  }
   buttons.forEach((button, index) => {
     switch (index) {
       case 1:
@@ -40,7 +47,6 @@ function labelButtons() {
         break;
       case 2:
         button.textContent = "/";
-        operator = "divide";
         break;
       case 3:
         button.textContent = "x";
@@ -52,7 +58,13 @@ function labelButtons() {
         break;
       case 11:
         button.textContent = "+";
-        operator = "sum";
+        button.addEventListener('click', () => {
+          let value = screenText.textContent;
+          num1 = value;
+          console.log(num1);
+          operatorPressed = 1;
+          operator = "sum";
+        })
         break;
       case 15:
         button.textContent = "=";
@@ -61,6 +73,10 @@ function labelButtons() {
         button.textContent = number;
         number++;
         button.addEventListener('click', function () {
+          if(operatorPressed){
+            clearScreen();
+            operatorPressed = 0;
+          }
           populateScreen(this.textContent);
         });
     }
